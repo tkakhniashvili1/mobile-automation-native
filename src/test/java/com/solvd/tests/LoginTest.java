@@ -69,4 +69,16 @@ public class LoginTest extends AbstractTest {
         Assert.assertTrue(productPage.areFirstProductCardsContentDisplayed(2),
                 "First 2 product cards do not show name and price");
     }
+
+    @Test
+    public void verifyLogoutFromTheApplication() {
+        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+
+        ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
+        Assert.assertTrue(productPage.isProductCardDisplayed(), "Product list is not displayed");
+
+        LoginPageBase loginPageAfterLogout = productPage.logoutFromApplication();
+
+        Assert.assertTrue(loginPageAfterLogout.isLoginScreenDisplayed(), "Login screen is not displayed after logout");
+    }
 }

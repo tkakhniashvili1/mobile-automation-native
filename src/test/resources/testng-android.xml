@@ -5,6 +5,8 @@
         <classes>
             <class name="com.solvd.tests.LoginTest">
             </class>
+            <class name="com.solvd.tests.ProductTest"></class>
+            <class name="com.solvd.tests.CartTest"></class>
         </classes>
     </test>
 </suite>
