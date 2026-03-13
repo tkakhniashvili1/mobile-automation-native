@@ -9,7 +9,7 @@ public abstract class ProductDetailPageBase extends AbstractPage {
         super(driver);
     }
 
-    public abstract boolean isProductDetailsPageDisplayed();
+    public abstract boolean isProductDetailsPageOpened();
 
     public abstract boolean isSelectedProductNameDisplayed(String expectedProductName);
 

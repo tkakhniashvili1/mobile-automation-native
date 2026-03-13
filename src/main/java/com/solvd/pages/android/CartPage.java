@@ -32,7 +32,7 @@ public class CartPage extends CartPageBase {
     }
 
     @Override
-    public boolean isCartPageDisplayed() {
+    public boolean isCartPageOpened() {
         return continueShoppingButton.isElementPresent(TimeoutConstants.LONG_TIMEOUT);
     }
 

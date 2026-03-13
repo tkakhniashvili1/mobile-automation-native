@@ -29,7 +29,7 @@ public class ProductDetailPage extends ProductDetailPageBase {
     }
 
     @Override
-    public boolean isProductDetailsPageDisplayed() {
+    public boolean isProductDetailsPageOpened() {
         return backToProductsButton.isElementPresent(TimeoutConstants.LONG_TIMEOUT);
     }
 

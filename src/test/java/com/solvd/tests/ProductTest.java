@@ -15,12 +15,12 @@ public class ProductTest extends AbstractTest {
         LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
 
         ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardDisplayed(), "Product list is not displayed");
+        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
 
         String expectedProductName = productPage.getFirstProductTitleText();
         ProductDetailPageBase productDetailPage = productPage.openFirstProductDetails();
 
-        Assert.assertTrue(productDetailPage.isProductDetailsPageDisplayed(), "Product details page is not opened");
+        Assert.assertTrue(productDetailPage.isProductDetailsPageOpened(), "Product details page is not opened");
         Assert.assertTrue(productDetailPage.isSelectedProductNameDisplayed(expectedProductName),
                 "Selected product name is not displayed");
         Assert.assertTrue(productDetailPage.isProductImagePriceAndDescriptionDisplayed(),
@@ -32,7 +32,7 @@ public class ProductTest extends AbstractTest {
         LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
 
         ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardDisplayed(), "Product list is not displayed");
+        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
 
         String expectedProductName = productPage.getFirstProductTitleText();
 
@@ -44,7 +44,7 @@ public class ProductTest extends AbstractTest {
 
         CartPageBase cartPage = productPage.openCart();
 
-        Assert.assertTrue(cartPage.isCartPageDisplayed(), "Cart screen is not opened");
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart screen is not opened");
         Assert.assertTrue(cartPage.isAddedProductDisplayedInCart(expectedProductName),
                 "Selected product is not added to cart");
     }

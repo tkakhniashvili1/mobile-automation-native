@@ -14,7 +14,7 @@ public class LoginTest extends AbstractTest {
         Assert.assertTrue(loginPage.isLoginScreenDisplayed(), "Login screen is not displayed");
 
         ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardDisplayed(), "Product list is not displayed");
+        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
     }
 
     @Test
@@ -65,7 +65,7 @@ public class LoginTest extends AbstractTest {
 
         ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
 
-        Assert.assertTrue(productPage.isProductCardDisplayed(), "At least one product card is not visible");
+        Assert.assertTrue(productPage.isProductCardOpened(), "At least one product card is not visible");
         Assert.assertTrue(productPage.areFirstProductCardsContentDisplayed(2),
                 "First 2 product cards do not show name and price");
     }
@@ -75,7 +75,7 @@ public class LoginTest extends AbstractTest {
         LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
 
         ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardDisplayed(), "Product list is not displayed");
+        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
 
         LoginPageBase loginPageAfterLogout = productPage.logoutFromApplication();
 

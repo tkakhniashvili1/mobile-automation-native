@@ -14,7 +14,7 @@ public class CartTest extends AbstractTest {
         LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
 
         ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardDisplayed(), "Product list is not displayed");
+        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
 
         String expectedProductName = productPage.getFirstProductTitleText();
         String expectedProductPrice = productPage.getFirstProductPriceText();
@@ -22,7 +22,7 @@ public class CartTest extends AbstractTest {
         productPage.addFirstProductToCart();
         CartPageBase cartPage = productPage.openCart();
 
-        Assert.assertTrue(cartPage.isCartPageDisplayed(), "Cart screen is not opened");
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart screen is not opened");
         Assert.assertTrue(cartPage.isAddedProductDisplayedInCart(expectedProductName),
                 "Added product is not displayed in the cart");
         Assert.assertEquals(cartPage.getFirstCartItemTitleText(), expectedProductName,
@@ -36,14 +36,14 @@ public class CartTest extends AbstractTest {
         LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
 
         ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardDisplayed(), "Product list is not displayed");
+        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
 
         String removedProductName = productPage.getFirstProductTitleText();
 
         productPage.addFirstProductToCart();
         CartPageBase cartPage = productPage.openCart();
 
-        Assert.assertTrue(cartPage.isCartPageDisplayed(), "Cart screen is not opened");
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart screen is not opened");
 
         cartPage.removeFirstProductFromCart();
 

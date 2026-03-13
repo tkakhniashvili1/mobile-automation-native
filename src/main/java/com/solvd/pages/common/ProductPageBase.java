@@ -12,7 +12,7 @@ public abstract class ProductPageBase extends AbstractPage {
         super(driver);
     }
 
-    public abstract boolean isProductCardDisplayed();
+    public abstract boolean isProductCardOpened();
 
     public abstract boolean areFirstProductCardsContentDisplayed(int count);
 

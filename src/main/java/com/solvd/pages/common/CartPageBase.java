@@ -9,7 +9,7 @@ public abstract class CartPageBase extends AbstractPage {
         super(driver);
     }
 
-    public abstract boolean isCartPageDisplayed();
+    public abstract boolean isCartPageOpened();
 
     public abstract boolean isAddedProductDisplayedInCart(String expectedProductName);
 

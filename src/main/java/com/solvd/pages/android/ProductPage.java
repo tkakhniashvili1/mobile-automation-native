@@ -48,7 +48,7 @@ public class ProductPage extends ProductPageBase {
     }
 
     @Override
-    public boolean isProductCardDisplayed() {
+    public boolean isProductCardOpened() {
         return firstProductCard.isElementPresent(TimeoutConstants.LONG_TIMEOUT);
     }
 
