@@ -1,13 +1,11 @@
 package com.solvd.pages.android;
 
-import com.solvd.pages.common.CartPageBase;
-import com.solvd.pages.common.LoginPageBase;
+import com.solvd.components.common.HeaderComponentBase;
 import com.solvd.pages.common.ProductDetailPageBase;
 import com.solvd.pages.common.ProductPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -40,18 +38,13 @@ public class ProductPage extends ProductPageBase {
     @FindBy(xpath = "(//*[@content-desc='test-Price'])[1]")
     private ExtendedWebElement firstProductPrice;
 
-    @FindBy(xpath = "//*[@content-desc='test-Cart']")
-    private ExtendedWebElement cartButton;
-
-    @FindBy(xpath = "//*[@content-desc='test-Menu']")
-    private ExtendedWebElement menuButton;
-
-    @FindBy(xpath = "//*[@content-desc='test-LOGOUT']")
-    private ExtendedWebElement logoutButton;
+    @FindBy(xpath = "//*[@content-desc='test-Item']//android.widget.ImageView")
+    private List<ExtendedWebElement> productImages;
 
     public ProductPage(WebDriver driver) {
         super(driver);
         setUiLoadedMarker(firstProductCard);
+        header = initPage(getDriver(), HeaderComponentBase.class);
     }
 
     @Override
@@ -63,14 +56,16 @@ public class ProductPage extends ProductPageBase {
     public boolean areFirstProductCardsContentDisplayed(int count) {
         if (productCards.size() < count
                 || productTitles.size() < count
-                || productPrices.size() < count) {
+                || productPrices.size() < count
+                || productImages.size() < count) {
             return false;
         }
 
         for (int i = 0; i < count; i++) {
             if (!productCards.get(i).isElementPresent(TimeoutConstants.SHORT_TIMEOUT)
                     || !productTitles.get(i).isElementPresent(TimeoutConstants.SHORT_TIMEOUT)
-                    || !productPrices.get(i).isElementPresent(TimeoutConstants.SHORT_TIMEOUT)) {
+                    || !productPrices.get(i).isElementPresent(TimeoutConstants.SHORT_TIMEOUT)
+                    || !productImages.get(i).isElementPresent(TimeoutConstants.SHORT_TIMEOUT)) {
                 return false;
             }
         }
@@ -101,28 +96,8 @@ public class ProductPage extends ProductPageBase {
     }
 
     @Override
-    public boolean isCartBadgeCountDisplayed(int expectedCount) {
-        return !getDriver().findElements(
-                By.xpath("//*[@content-desc='test-Cart']//*[@text='" + expectedCount + "']")
-        ).isEmpty();
-    }
-
-    @Override
     public String getFirstProductPriceText() {
         firstProductPrice.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
         return firstProductPrice.getText().trim();
-    }
-
-    @Override
-    public CartPageBase openCart() {
-        cartButton.click();
-        return initPage(getDriver(), CartPageBase.class);
-    }
-
-    @Override
-    public LoginPageBase logoutFromApplication() {
-        menuButton.click();
-        logoutButton.click();
-        return initPage(getDriver(), LoginPageBase.class);
     }
 }

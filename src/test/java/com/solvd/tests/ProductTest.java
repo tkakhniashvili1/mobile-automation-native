@@ -1,5 +1,6 @@
 package com.solvd.tests;
 
+import com.solvd.pages.common.CartPageBase;
 import com.solvd.pages.common.LoginPageBase;
 import com.solvd.pages.common.ProductDetailPageBase;
 import com.solvd.pages.common.ProductPageBase;
@@ -33,10 +34,18 @@ public class ProductTest extends AbstractTest {
         ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
         Assert.assertTrue(productPage.isProductCardDisplayed(), "Product list is not displayed");
 
+        String expectedProductName = productPage.getFirstProductTitleText();
+
         productPage.addFirstProductToCart();
 
         Assert.assertTrue(productPage.isCartBadgeCountDisplayed(1), "Cart badge did not increase by 1");
         Assert.assertTrue(productPage.isFirstProductButtonUpdatedToRemoveState(),
                 "Button state was not updated after adding product to cart");
+
+        CartPageBase cartPage = productPage.openCart();
+
+        Assert.assertTrue(cartPage.isCartPageDisplayed(), "Cart screen is not opened");
+        Assert.assertTrue(cartPage.isAddedProductDisplayedInCart(expectedProductName),
+                "Selected product is not added to cart");
     }
 }
