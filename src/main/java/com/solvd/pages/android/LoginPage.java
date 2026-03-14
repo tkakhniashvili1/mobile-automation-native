@@ -7,9 +7,13 @@ import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = LoginPageBase.class)
 public class LoginPage extends LoginPageBase {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
 
     @FindBy(xpath = "//*[@content-desc='test-Username']")
     private ExtendedWebElement usernameInput;
@@ -30,17 +34,21 @@ public class LoginPage extends LoginPageBase {
 
     @Override
     public ProductPageBase login(String username, String password) {
+        LOGGER.info("Logging in with username: {}", username);
         usernameInput.type(username);
         passwordInput.type(password);
         loginButton.click();
+        LOGGER.info("Login button clicked for username: {}", username);
         return initPage(getDriver(), ProductPageBase.class);
     }
 
     @Override
     public LoginPageBase loginExpectingFailure(String username, String password) {
+        LOGGER.info("Attempting negative login with username: {}", username);
         usernameInput.type(username);
         passwordInput.type(password);
         loginButton.click();
+        LOGGER.info("Login button clicked for negative login scenario");
         return initPage(getDriver(), LoginPageBase.class);
     }
 

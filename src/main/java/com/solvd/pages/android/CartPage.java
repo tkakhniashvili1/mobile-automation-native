@@ -7,9 +7,13 @@ import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CartPage.class);
 
     @FindBy(xpath = "//*[@content-desc='test-CONTINUE SHOPPING']")
     private ExtendedWebElement continueShoppingButton;
@@ -57,7 +61,9 @@ public class CartPage extends CartPageBase {
 
     @Override
     public void removeFirstProductFromCart() {
+        LOGGER.info("Removing first product from cart");
         firstRemoveButton.click();
+        LOGGER.info("Remove button clicked for first cart item");
     }
 
     @Override

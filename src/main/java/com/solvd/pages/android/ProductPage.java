@@ -8,11 +8,15 @@ import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = ProductPageBase.class)
 public class ProductPage extends ProductPageBase {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProductPage.class);
 
     @FindBy(xpath = "(//*[@content-desc='test-Item'])[1]")
     private ExtendedWebElement firstProductCard;
@@ -81,13 +85,18 @@ public class ProductPage extends ProductPageBase {
 
     @Override
     public ProductDetailPageBase openFirstProductDetails() {
+        String productName = getFirstProductTitleText();
+        LOGGER.info("Opening product details for product: {}", productName);
         firstProductCard.click();
         return initPage(getDriver(), ProductDetailPageBase.class);
     }
 
     @Override
     public void addFirstProductToCart() {
+        String productName = getFirstProductTitleText();
+        LOGGER.info("Adding product to cart: {}", productName);
         firstAddToCartButton.click();
+        LOGGER.info("Add to cart clicked for product: {}", productName);
     }
 
     @Override

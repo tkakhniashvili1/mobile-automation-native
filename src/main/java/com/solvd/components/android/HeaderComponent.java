@@ -2,6 +2,7 @@ package com.solvd.components.android;
 
 import com.solvd.components.common.HeaderComponentBase;
 import com.solvd.components.common.MenuComponentBase;
+import com.solvd.pages.android.CartPage;
 import com.solvd.pages.common.CartPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
@@ -9,9 +10,13 @@ import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = HeaderComponentBase.class)
 public class HeaderComponent extends HeaderComponentBase {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CartPage.class);
 
     @FindBy(xpath = "//*[@content-desc='test-Menu']")
     private ExtendedWebElement menuButton;
@@ -28,6 +33,7 @@ public class HeaderComponent extends HeaderComponentBase {
 
     @Override
     public CartPageBase openCart() {
+        LOGGER.info("Opening cart page");
         cartButton.click();
         return initPage(getDriver(), CartPageBase.class);
     }
@@ -45,6 +51,7 @@ public class HeaderComponent extends HeaderComponentBase {
 
     @Override
     public MenuComponentBase openMenu() {
+        LOGGER.info("Opening side menu");
         menuButton.click();
         return initPage(getDriver(), MenuComponentBase.class);
     }
