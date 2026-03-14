@@ -22,7 +22,7 @@ public class CartTest extends AbstractTest {
         productPage.addFirstProductToCart();
         CartPageBase cartPage = productPage.openCart();
 
-        Assert.assertTrue(cartPage.isPageOpened(), "Cart screen is not opened");
+        Assert.assertTrue(cartPage.isCartPageOpened(), "Cart page is not opened");
         Assert.assertTrue(cartPage.isAddedProductDisplayedInCart(expectedProductName),
                 "Added product is not displayed in the cart");
         Assert.assertEquals(cartPage.getFirstCartItemTitleText(), expectedProductName,
@@ -43,7 +43,7 @@ public class CartTest extends AbstractTest {
         productPage.addFirstProductToCart();
         CartPageBase cartPage = productPage.openCart();
 
-        Assert.assertTrue(cartPage.isPageOpened(), "Cart screen is not opened");
+        Assert.assertTrue(cartPage.isCartPageOpened(), "Cart page is not opened");
 
         cartPage.removeFirstProductFromCart();
 

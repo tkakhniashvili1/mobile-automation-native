@@ -44,7 +44,7 @@ public class ProductTest extends AbstractTest {
 
         CartPageBase cartPage = productPage.openCart();
 
-        Assert.assertTrue(cartPage.isPageOpened(), "Cart screen is not opened");
+        Assert.assertTrue(cartPage.isCartPageOpened(), "Cart page is not opened");
         Assert.assertTrue(cartPage.isAddedProductDisplayedInCart(expectedProductName),
                 "Selected product is not added to cart");
     }
