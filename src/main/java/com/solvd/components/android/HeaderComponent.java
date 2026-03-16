@@ -6,6 +6,7 @@ import com.solvd.pages.common.CartPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -17,13 +18,13 @@ public class HeaderComponent extends HeaderComponentBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HeaderComponent.class);
 
-    @FindBy(xpath = "//*[@content-desc='test-Menu']")
+    @AndroidFindBy(accessibility = "test-Menu")
     private ExtendedWebElement menuButton;
 
-    @FindBy(xpath = "//*[@content-desc='test-Cart']")
+    @AndroidFindBy(accessibility = "test-Cart")
     private ExtendedWebElement cartButton;
 
-    @FindBy(xpath = "//*[@content-desc='test-Cart badge']")
+    @AndroidFindBy(accessibility = "test-Cart badge")
     private ExtendedWebElement cartBadge;
 
     public HeaderComponent(WebDriver driver) {

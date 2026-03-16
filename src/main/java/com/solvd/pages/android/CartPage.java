@@ -4,28 +4,31 @@ import com.solvd.pages.common.CartPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CartPage.class);
 
-    @FindBy(xpath = "//*[@content-desc='test-CONTINUE SHOPPING']")
+    @AndroidFindBy(accessibility = "test-CONTINUE SHOPPING")
     private ExtendedWebElement continueShoppingButton;
 
     @FindBy(xpath = "(//*[@content-desc='test-Description']/android.widget.TextView)[1]")
     private ExtendedWebElement firstCartItemTitle;
 
-    @FindBy(xpath = "(//*[@content-desc='test-Price']//android.widget.TextView)[1]")
+    @AndroidFindBy(uiAutomator = "new UiSelector().description(\"test-Price\").childSelector(new UiSelector().classNameMatches(\".*Text.*\"))")
     private ExtendedWebElement firstCartItemPrice;
 
-    @FindBy(xpath = "(//*[@content-desc='test-REMOVE'])[1]")
-    private ExtendedWebElement firstRemoveButton;
+    @AndroidFindBy(accessibility = "test-REMOVE")
+    private List<ExtendedWebElement> removeButtons;
 
     @FindBy(xpath = "//*[@content-desc='test-Cart badge']")
     private ExtendedWebElement cartBadge;
@@ -62,7 +65,7 @@ public class CartPage extends CartPageBase {
     @Override
     public void removeFirstProductFromCart() {
         LOGGER.info("Removing first product from cart");
-        firstRemoveButton.click();
+        removeButtons.get(0).click();
         LOGGER.info("Remove button clicked for first cart item");
     }
 

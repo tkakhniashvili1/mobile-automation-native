@@ -4,6 +4,7 @@ import com.solvd.pages.common.ProductDetailPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -11,16 +12,16 @@ import org.openqa.selenium.support.FindBy;
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = ProductDetailPageBase.class)
 public class ProductDetailPage extends ProductDetailPageBase {
 
-    @FindBy(xpath = "//*[@content-desc='test-BACK TO PRODUCTS']")
+    @AndroidFindBy(accessibility = "test-BACK TO PRODUCTS")
     private ExtendedWebElement backToProductsButton;
 
-    @FindBy(xpath = "//*[@content-desc='test-Price']")
+    @AndroidFindBy(accessibility = "test-Price")
     private ExtendedWebElement productPrice;
 
-    @FindBy(xpath = "//*[@content-desc='test-Description']")
+    @AndroidFindBy(accessibility = "test-Description")
     private ExtendedWebElement productDescription;
 
-    @FindBy(xpath = "//*[@content-desc='test-Image Container']")
+    @AndroidFindBy(accessibility = "test-Image Container")
     private ExtendedWebElement productImage;
 
     public ProductDetailPage(WebDriver driver) {

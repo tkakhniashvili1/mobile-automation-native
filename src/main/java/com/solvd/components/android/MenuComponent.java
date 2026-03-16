@@ -4,6 +4,7 @@ import com.solvd.components.common.MenuComponentBase;
 import com.solvd.pages.common.LoginPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ public class MenuComponent extends MenuComponentBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MenuComponent.class);
 
-    @FindBy(xpath = "//*[@content-desc='test-LOGOUT']")
+    @AndroidFindBy(accessibility = "test-LOGOUT")
     private ExtendedWebElement logoutButton;
 
     public MenuComponent(WebDriver driver) {
