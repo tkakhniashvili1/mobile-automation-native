@@ -6,6 +6,7 @@ import com.solvd.pages.common.ProductPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class ProductPage extends ProductPageBase {
     @FindBy(xpath = "(//*[@content-desc='test-REMOVE'])[1]")
     private ExtendedWebElement firstRemoveButton;
 
-    @FindBy(xpath = "//*[@content-desc='test-Item']")
+    @AndroidFindBy(accessibility = "test-Item")
     private List<ExtendedWebElement> productCards;
 
     @FindBy(xpath = "//*[@content-desc='test-Item title']")
