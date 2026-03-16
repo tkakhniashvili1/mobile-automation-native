@@ -45,9 +45,7 @@ public class CartPage extends CartPageBase {
 
     @Override
     public boolean isAddedProductDisplayedInCart(String expectedProductName) {
-        return !getDriver().findElements(
-                By.xpath("//android.widget.TextView[@text=\"" + expectedProductName + "\"]")
-        ).isEmpty();
+        return isCartItemWithTitlePresent(expectedProductName);
     }
 
     @Override
@@ -76,8 +74,12 @@ public class CartPage extends CartPageBase {
 
     @Override
     public boolean isRemovedItemNotDisplayed(String removedProductName) {
-        return getDriver().findElements(
-                By.xpath("//android.widget.TextView[@text=\"" + removedProductName + "\"]")
+        return !isCartItemWithTitlePresent(removedProductName);
+    }
+
+    private boolean isCartItemWithTitlePresent(String productName) {
+        return !getDriver().findElements(
+                By.xpath("//android.widget.TextView[@text=\"" + productName + "\"]")
         ).isEmpty();
     }
 }
