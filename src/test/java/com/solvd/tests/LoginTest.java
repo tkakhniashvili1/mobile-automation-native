@@ -2,24 +2,19 @@ package com.solvd.tests;
 
 import com.solvd.pages.common.LoginPageBase;
 import com.solvd.pages.common.ProductPageBase;
-import com.zebrunner.carina.core.AbstractTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class LoginTest extends AbstractTest {
+public class LoginTest extends BaseMobileTest {
 
     @Test
     public void verifyLoginWithValidCredentials() {
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
-        Assert.assertTrue(loginPage.isLoginScreenDisplayed(), "Login screen is not displayed");
-
-        ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
+        loginAsStandardUser();
     }
 
     @Test
     public void verifyLoginWithInvalidPassword() {
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+        LoginPageBase loginPage = openLoginPage();
 
         LoginPageBase loginPageAfterFailedLogin = loginPage.loginExpectingFailure("standard_user", "wrong_password");
 
@@ -33,7 +28,7 @@ public class LoginTest extends AbstractTest {
 
     @Test
     public void verifyLoginWithEmptyUsername() {
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+        LoginPageBase loginPage = openLoginPage();
 
         LoginPageBase loginPageAfterFailedLogin = loginPage.loginExpectingFailure("", "secret_sauce");
 
@@ -47,7 +42,7 @@ public class LoginTest extends AbstractTest {
 
     @Test
     public void verifyLoginWithEmptyPassword() {
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+        LoginPageBase loginPage = openLoginPage();
 
         LoginPageBase loginPageAfterFailedLogin = loginPage.loginExpectingFailure("standard_user", "");
 
@@ -61,21 +56,15 @@ public class LoginTest extends AbstractTest {
 
     @Test
     public void verifyProductsAreDisplayedAfterLogin() {
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
+        ProductPageBase productPage = loginAsStandardUser();
 
-        ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-
-        Assert.assertTrue(productPage.isProductCardOpened(), "At least one product card is not visible");
         Assert.assertTrue(productPage.areFirstProductCardsContentDisplayed(2),
                 "First 2 product cards do not show name and price");
     }
 
     @Test
     public void verifyLogoutFromTheApplication() {
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
-
-        ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
+        ProductPageBase productPage = loginAsStandardUser();
 
         LoginPageBase loginPageAfterLogout = productPage.logoutFromApplication();
 
