@@ -1,21 +1,16 @@
 package com.solvd.tests;
 
 import com.solvd.pages.common.CartPageBase;
-import com.solvd.pages.common.LoginPageBase;
 import com.solvd.pages.common.ProductDetailPageBase;
 import com.solvd.pages.common.ProductPageBase;
-import com.zebrunner.carina.core.AbstractTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ProductTest extends AbstractTest {
+public class ProductTest extends BaseMobileTest {
 
     @Test
     public void verifyProductDetailsPageOpensFromProductList() {
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
-
-        ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
+        ProductPageBase productPage = loginAsStandardUser();
 
         String expectedProductName = productPage.getFirstProductTitleText();
         ProductDetailPageBase productDetailPage = productPage.openFirstProductDetails();
@@ -29,10 +24,7 @@ public class ProductTest extends AbstractTest {
 
     @Test
     public void verifyProductCanBeAddedToCartFromProductList() {
-        LoginPageBase loginPage = initPage(getDriver(), LoginPageBase.class);
-
-        ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
+        ProductPageBase productPage = loginAsStandardUser();
 
         String expectedProductName = productPage.getFirstProductTitleText();
 
