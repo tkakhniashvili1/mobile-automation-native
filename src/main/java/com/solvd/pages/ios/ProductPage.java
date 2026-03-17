@@ -6,6 +6,7 @@ import com.solvd.pages.common.ProductPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
@@ -18,7 +19,7 @@ public class ProductPage extends ProductPageBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductPage.class);
 
-    @FindBy(xpath = "**/XCUIElementTypeOther[`name == \"test-Item\"`][1]")
+    @iOSXCUITFindBy(iOSClassChain = "**/XCUIElementTypeOther[`name == 'test-Item'`][1]")
     private ExtendedWebElement firstProductCard;
 
     @FindBy(xpath = "(//*[@name='test-Item title'])[1]")
@@ -30,7 +31,7 @@ public class ProductPage extends ProductPageBase {
     @FindBy(xpath = "(//*[@name='test-REMOVE'])[1]")
     private ExtendedWebElement firstRemoveButton;
 
-    @FindBy(xpath = "**/XCUIElementTypeOther[`name == \"test-Item\"`]")
+    @FindBy(xpath = "//*[@name='test-Item']")
     private List<ExtendedWebElement> productCards;
 
     @FindBy(xpath = "//*[@name='test-Item title']")
@@ -62,6 +63,8 @@ public class ProductPage extends ProductPageBase {
                 || productTitles.size() < count
                 || productPrices.size() < count
                 || productImages.size() < count) {
+            LOGGER.warn("Not enough product elements found. cards={}, titles={}, prices={}, images={}, expected={}",
+                    productCards.size(), productTitles.size(), productPrices.size(), productImages.size(), count);
             return false;
         }
 
@@ -70,6 +73,7 @@ public class ProductPage extends ProductPageBase {
                     || !productTitles.get(i).isElementPresent(TimeoutConstants.SHORT_TIMEOUT)
                     || !productPrices.get(i).isElementPresent(TimeoutConstants.SHORT_TIMEOUT)
                     || !productImages.get(i).isElementPresent(TimeoutConstants.SHORT_TIMEOUT)) {
+                LOGGER.warn("Product content is not fully displayed for index {}", i);
                 return false;
             }
         }
