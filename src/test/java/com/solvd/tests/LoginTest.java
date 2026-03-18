@@ -2,10 +2,10 @@ package com.solvd.tests;
 
 import com.solvd.pages.common.LoginPageBase;
 import com.solvd.pages.common.ProductPageBase;
+import com.zebrunner.carina.utils.R;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import com.zebrunner.carina.utils.R;
 
 public class LoginTest extends BaseMobileTest {
 
