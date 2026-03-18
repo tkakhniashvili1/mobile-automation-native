@@ -19,10 +19,10 @@ public class CartPage extends CartPageBase {
     @AndroidFindBy(accessibility = "test-CONTINUE SHOPPING")
     private ExtendedWebElement continueShoppingButton;
 
-    @FindBy(xpath = "//*[@content-desc='test-REMOVE']/ancestor::*[@content-desc='test-Item'][1]")
+    @FindBy(xpath = "//*[@content-desc='test-Item']")
     private List<CartItemComponent> cartItems;
 
-    @FindBy(xpath = "//*[@content-desc='test-Cart badge']")
+    @AndroidFindBy(accessibility = "test-Cart badge")
     private ExtendedWebElement cartBadge;
 
     public CartPage(WebDriver driver) {
