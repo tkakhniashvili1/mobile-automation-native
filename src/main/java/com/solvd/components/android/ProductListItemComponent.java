@@ -12,19 +12,19 @@ import org.openqa.selenium.support.FindBy;
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = ProductListItemComponentBase.class)
 public class ProductListItemComponent extends ProductListItemComponentBase {
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().description(\"test-Item title\")")
+    @FindBy(xpath = ".//*[@content-desc='test-Item title']")
     private ExtendedWebElement productTitle;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().description(\"test-Price\")")
+    @FindBy(xpath = ".//*[@content-desc='test-Price']")
     private ExtendedWebElement productPrice;
 
     @FindBy(xpath = ".//android.widget.ImageView")
     private ExtendedWebElement productImage;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().description(\"test-ADD TO CART\")")
+    @FindBy(xpath = ".//*[@content-desc='test-ADD TO CART']")
     private ExtendedWebElement addToCartButton;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().description(\"test-REMOVE\")")
+    @FindBy(xpath = ".//*[@content-desc='test-REMOVE']")
     private ExtendedWebElement removeButton;
 
     public ProductListItemComponent(WebDriver driver, SearchContext searchContext) {
