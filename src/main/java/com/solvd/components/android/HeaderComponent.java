@@ -7,9 +7,7 @@ import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,14 +37,18 @@ public class HeaderComponent extends HeaderComponentBase {
     }
 
     @Override
-    public boolean isCartBadgeCountDisplayed(int expectedCount) {
-        if (cartBadge.isElementPresent(TimeoutConstants.SHORT_TIMEOUT)) {
-            return cartBadge.getText().trim().equals(String.valueOf(expectedCount));
-        }
+    public boolean isCartBadgeDisplayed() {
+        return cartBadge.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
+    }
 
-        return !getDriver().findElements(
-                By.xpath("//android.widget.TextView[@text='" + expectedCount + "']")
-        ).isEmpty();
+    @Override
+    public int getCartBadgeCount() {
+        return Integer.parseInt(cartBadge.getText().trim());
+    }
+
+    @Override
+    public boolean isCartBadgeCountDisplayed(int expectedCount) {
+        return isCartBadgeDisplayed() && getCartBadgeCount() == expectedCount;
     }
 
     @Override

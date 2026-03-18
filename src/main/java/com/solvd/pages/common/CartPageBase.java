@@ -1,7 +1,10 @@
 package com.solvd.pages.common;
 
+import com.solvd.components.common.CartItemComponentBase;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
+
+import java.util.List;
 
 public abstract class CartPageBase extends AbstractPage {
 
@@ -9,15 +12,15 @@ public abstract class CartPageBase extends AbstractPage {
         super(driver);
     }
 
-    public abstract boolean isCartPageOpened();
+    public abstract boolean isPageOpened();
+
+    public abstract List<CartItemComponentBase> getCartItems();
+
+    public abstract CartItemComponentBase getCartItem(int index);
+
+    public abstract CartItemComponentBase getCartItemByTitle(String productTitle);
 
     public abstract boolean isAddedProductDisplayedInCart(String expectedProductName);
-
-    public abstract String getFirstCartItemTitleText();
-
-    public abstract String getFirstCartItemPriceText();
-
-    public abstract void removeFirstProductFromCart();
 
     public abstract boolean isCartBadgeNotDisplayed();
 

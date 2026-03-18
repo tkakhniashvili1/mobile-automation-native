@@ -13,5 +13,9 @@ public abstract class ProductDetailPageBase extends AbstractPage {
 
     public abstract boolean isSelectedProductNameDisplayed(String expectedProductName);
 
-    public abstract boolean isProductImagePriceAndDescriptionDisplayed();
+    public abstract boolean isProductImageDisplayed();
+
+    public abstract boolean isProductPriceDisplayed();
+
+    public abstract boolean isProductDescriptionDisplayed();
 }

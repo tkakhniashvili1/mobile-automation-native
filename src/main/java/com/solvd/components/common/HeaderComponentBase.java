@@ -12,6 +12,10 @@ public abstract class HeaderComponentBase extends AbstractPage {
 
     public abstract CartPageBase openCart();
 
+    public abstract boolean isCartBadgeDisplayed();
+
+    public abstract int getCartBadgeCount();
+
     public abstract boolean isCartBadgeCountDisplayed(int expectedCount);
 
     public abstract MenuComponentBase openMenu();

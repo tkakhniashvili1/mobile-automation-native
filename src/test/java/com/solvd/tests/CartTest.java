@@ -1,5 +1,7 @@
 package com.solvd.tests;
 
+import com.solvd.components.common.CartItemComponentBase;
+import com.solvd.components.common.ProductListItemComponentBase;
 import com.solvd.pages.common.CartPageBase;
 import com.solvd.pages.common.ProductPageBase;
 import org.testng.Assert;
@@ -10,37 +12,50 @@ public class CartTest extends BaseMobileTest {
     @Test
     public void verifyAddedProductIsShownInCart() {
         ProductPageBase productPage = loginAsStandardUser();
+        ProductListItemComponentBase firstProductItem = productPage.getFirstProductItem();
 
-        String expectedProductName = productPage.getFirstProductTitleText();
-        String expectedProductPrice = productPage.getFirstProductPriceText();
+        String expectedProductName = firstProductItem.getProductTitleText();
+        String expectedProductPrice = firstProductItem.getProductPriceText();
 
-        productPage.addFirstProductToCart();
+        firstProductItem.addProductToCart();
         CartPageBase cartPage = productPage.openCart();
+        CartItemComponentBase firstCartItem = cartPage.getCartItem(0);
 
-        Assert.assertTrue(cartPage.isCartPageOpened(), "Cart page is not opened");
-        Assert.assertTrue(cartPage.isAddedProductDisplayedInCart(expectedProductName),
-                "Added product is not displayed in the cart");
-        Assert.assertEquals(cartPage.getFirstCartItemTitleText(), expectedProductName,
-                "Product name does not match the selected item");
-        Assert.assertEquals(cartPage.getFirstCartItemPriceText(), expectedProductPrice,
-                "Product price does not match the selected item");
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened");
+        Assert.assertTrue(
+                cartPage.isAddedProductDisplayedInCart(expectedProductName),
+                "Added product is not displayed in the cart"
+        );
+        Assert.assertEquals(
+                firstCartItem.getProductTitle(),
+                expectedProductName,
+                "Product name does not match the selected item"
+        );
+        Assert.assertEquals(
+                firstCartItem.getProductPrice(),
+                expectedProductPrice,
+                "Product price does not match the selected item"
+        );
     }
 
     @Test
     public void verifyProductCanBeRemovedFromCart() {
         ProductPageBase productPage = loginAsStandardUser();
+        ProductListItemComponentBase firstProductItem = productPage.getFirstProductItem();
 
-        String removedProductName = productPage.getFirstProductTitleText();
+        String removedProductName = firstProductItem.getProductTitleText();
 
-        productPage.addFirstProductToCart();
+        firstProductItem.addProductToCart();
         CartPageBase cartPage = productPage.openCart();
 
-        Assert.assertTrue(cartPage.isCartPageOpened(), "Cart page is not opened");
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened");
 
-        cartPage.removeFirstProductFromCart();
+        cartPage.getCartItem(0).removeProduct();
 
         Assert.assertTrue(cartPage.isCartBadgeNotDisplayed(), "Cart badge is not updated");
-        Assert.assertTrue(cartPage.isRemovedItemNotDisplayed(removedProductName),
-                "Removed item is still displayed in the cart");
+        Assert.assertTrue(
+                cartPage.isRemovedItemNotDisplayed(removedProductName),
+                "Removed item is still displayed in the cart"
+        );
     }
 }
