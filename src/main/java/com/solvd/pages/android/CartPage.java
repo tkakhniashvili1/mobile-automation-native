@@ -37,6 +37,7 @@ public class CartPage extends CartPageBase {
 
     @Override
     public List<CartItemComponentBase> getCartItems() {
+        pause(1);
         return new ArrayList<>(cartItems);
     }
 
@@ -59,7 +60,7 @@ public class CartPage extends CartPageBase {
     }
 
     @Override
-    public boolean isCartBadgeNotDisplayed() {
+    public boolean isCartBadgeHidden() {
         return !cartBadge.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
     }
 

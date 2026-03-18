@@ -19,13 +19,12 @@ public class CartTest extends BaseMobileTest {
 
         firstProductItem.addProductToCart();
         CartPageBase cartPage = productPage.openCart();
+
+        Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened");
+
         CartItemComponentBase firstCartItem = cartPage.getCartItem(0);
 
         Assert.assertTrue(cartPage.isPageOpened(), "Cart page is not opened");
-        Assert.assertTrue(
-                cartPage.isAddedProductDisplayedInCart(expectedProductName),
-                "Added product is not displayed in the cart"
-        );
         Assert.assertEquals(
                 firstCartItem.getProductTitle(),
                 expectedProductName,
@@ -52,7 +51,7 @@ public class CartTest extends BaseMobileTest {
 
         cartPage.getCartItem(0).removeProduct();
 
-        Assert.assertTrue(cartPage.isCartBadgeNotDisplayed(), "Cart badge is not updated");
+        Assert.assertTrue(cartPage.isCartBadgeHidden(), "Cart badge is not updated");
         Assert.assertTrue(
                 cartPage.isRemovedItemNotDisplayed(removedProductName),
                 "Removed item is still displayed in the cart"

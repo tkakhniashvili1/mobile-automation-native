@@ -4,7 +4,6 @@ import com.solvd.components.common.ProductListItemComponentBase;
 import com.solvd.pages.common.ProductDetailPageBase;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -75,5 +74,12 @@ public class ProductListItemComponent extends ProductListItemComponentBase {
     @Override
     public boolean isButtonUpdatedToRemoveState() {
         return removeButton.isElementPresent();
+    }
+
+    @Override
+    public boolean isValidProductCard() {
+        return isProductCardOpened()
+                && isProductTitleDisplayed()
+                && isProductPriceDisplayed();
     }
 }

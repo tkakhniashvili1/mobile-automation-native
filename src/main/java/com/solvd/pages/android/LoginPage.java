@@ -45,16 +45,6 @@ public class LoginPage extends LoginPageBase {
     }
 
     @Override
-    public LoginPageBase loginExpectingFailure(String username, String password) {
-        LOGGER.info("Attempting negative login with username: {}", username);
-        usernameInput.type(username);
-        passwordInput.type(password);
-        loginButton.click();
-        LOGGER.info("Login button clicked for negative login scenario");
-        return initPage(getDriver(), LoginPageBase.class);
-    }
-
-    @Override
     public boolean isLoginScreenDisplayed() {
         return loginButton.isElementPresent(TimeoutConstants.LONG_TIMEOUT);
     }

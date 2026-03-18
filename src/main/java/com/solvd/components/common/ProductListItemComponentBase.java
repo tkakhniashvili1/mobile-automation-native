@@ -28,4 +28,6 @@ public abstract class ProductListItemComponentBase extends AbstractUIObject {
     public abstract void addProductToCart();
 
     public abstract boolean isButtonUpdatedToRemoveState();
+
+    public abstract boolean isValidProductCard();
 }

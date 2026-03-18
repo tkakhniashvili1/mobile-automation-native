@@ -5,15 +5,28 @@ import com.solvd.pages.common.ProductPageBase;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import com.zebrunner.carina.utils.R;
 
 public class LoginTest extends BaseMobileTest {
 
     @DataProvider(name = "invalidLoginData")
     public Object[][] invalidLoginData() {
         return new Object[][]{
-                {"standard_user", "wrong_password", "Username and password do not match any user in this service."},
-                {"", "secret_sauce", "Username is required"},
-                {"standard_user", "", "Password is required"}
+                {
+                        R.TESTDATA.get("valid.username"),
+                        R.TESTDATA.get("invalid.password.wrong"),
+                        R.TESTDATA.get("error.invalid.credentials")
+                },
+                {
+                        R.TESTDATA.get("invalid.username.empty"),
+                        R.TESTDATA.get("valid.password"),
+                        R.TESTDATA.get("error.username.required")
+                },
+                {
+                        R.TESTDATA.get("valid.username"),
+                        R.TESTDATA.get("invalid.password.empty"),
+                        R.TESTDATA.get("error.password.required")
+                }
         };
     }
 
@@ -26,14 +39,15 @@ public class LoginTest extends BaseMobileTest {
     public void verifyLoginWithInvalidCredentials(String username, String password, String expectedErrorMessage) {
         LoginPageBase loginPage = openLoginPage();
 
-        LoginPageBase loginPageAfterFailedLogin = loginPage.loginExpectingFailure(username, password);
+        loginPage.login(username, password);
 
         Assert.assertTrue(
-                loginPageAfterFailedLogin.isLoginScreenDisplayed(),
+                loginPage.isLoginScreenDisplayed(),
                 "User did not remain on the login screen"
         );
+
         Assert.assertEquals(
-                loginPageAfterFailedLogin.getErrorMessageText(),
+                loginPage.getErrorMessageText(),
                 expectedErrorMessage,
                 "Unexpected error message"
         );
@@ -44,7 +58,7 @@ public class LoginTest extends BaseMobileTest {
         ProductPageBase productPage = loginAsStandardUser();
 
         Assert.assertTrue(
-                productPage.areFirstProductCardsContentDisplayed(2),
+                productPage.areFirstProductsValid(2),
                 "First 2 product cards do not show name and price"
         );
     }

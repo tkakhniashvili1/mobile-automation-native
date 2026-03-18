@@ -44,3 +44,5 @@ logs/
 *.log
 reports/
 zebrunner/
+
+src/test/resources/_config.properties

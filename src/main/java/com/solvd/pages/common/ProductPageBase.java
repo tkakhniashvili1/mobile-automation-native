@@ -2,12 +2,17 @@ package com.solvd.pages.common;
 
 import com.solvd.components.common.HeaderComponentBase;
 import com.solvd.components.common.ProductListItemComponentBase;
+import com.solvd.pages.android.LoginPage;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public abstract class ProductPageBase extends AbstractPage {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
 
     protected HeaderComponentBase header;
 
@@ -23,18 +28,17 @@ public abstract class ProductPageBase extends AbstractPage {
         return getProductItems().get(0);
     }
 
-    public boolean areFirstProductCardsContentDisplayed(int count) {
+    public boolean areFirstProductsValid(int count) {
         List<ProductListItemComponentBase> items = getProductItems();
 
         if (items.size() < count) {
+            LOGGER.warn("Expected at least {} products, but found {}", count, items.size());
             return false;
         }
 
         for (int i = 0; i < count; i++) {
-            ProductListItemComponentBase item = items.get(i);
-            if (!item.isProductCardOpened()
-                    || !item.isProductTitleDisplayed()
-                    || !item.isProductPriceDisplayed()) {
+            if (!items.get(i).isValidProductCard()) {
+                LOGGER.warn("Product at index {} is not valid", i);
                 return false;
             }
         }

@@ -22,7 +22,7 @@ public abstract class CartPageBase extends AbstractPage {
 
     public abstract boolean isAddedProductDisplayedInCart(String expectedProductName);
 
-    public abstract boolean isCartBadgeNotDisplayed();
+    public abstract boolean isCartBadgeHidden();
 
     public abstract boolean isRemovedItemNotDisplayed(String removedProductName);
 }
