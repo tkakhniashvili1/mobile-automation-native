@@ -6,9 +6,8 @@ import com.solvd.pages.common.CartPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import org.openqa.selenium.By;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,13 +16,13 @@ public class HeaderComponent extends HeaderComponentBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HeaderComponent.class);
 
-    @FindBy(xpath = "//*[@name='test-Menu']")
+    @iOSXCUITFindBy(accessibility = "test-Menu")
     private ExtendedWebElement menuButton;
 
-    @FindBy(xpath = "//*[@name='test-Cart']")
+    @iOSXCUITFindBy(accessibility = "test-Cart")
     private ExtendedWebElement cartButton;
 
-    @FindBy(xpath = "//*[@name='test-Cart badge']")
+    @iOSXCUITFindBy(accessibility = "test-Cart badge")
     private ExtendedWebElement cartBadge;
 
     public HeaderComponent(WebDriver driver) {
@@ -38,14 +37,18 @@ public class HeaderComponent extends HeaderComponentBase {
     }
 
     @Override
-    public boolean isCartBadgeCountDisplayed(int expectedCount) {
-        if (cartBadge.isElementPresent(TimeoutConstants.SHORT_TIMEOUT)) {
-            return cartBadge.getText().trim().equals(String.valueOf(expectedCount));
-        }
+    public boolean isCartBadgeDisplayed() {
+        return cartBadge.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
+    }
 
-        return !getDriver().findElements(
-                By.xpath("//*[@name='" + expectedCount + "']")
-        ).isEmpty();
+    @Override
+    public int getCartBadgeCount() {
+        return Integer.parseInt(cartBadge.getText().trim());
+    }
+
+    @Override
+    public boolean isCartBadgeCountDisplayed(int expectedCount) {
+        return isCartBadgeDisplayed() && getCartBadgeCount() == expectedCount;
     }
 
     @Override

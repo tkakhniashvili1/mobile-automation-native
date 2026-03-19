@@ -4,24 +4,29 @@ import com.solvd.pages.common.ProductDetailPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
-import org.openqa.selenium.By;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 @DeviceType(pageType = DeviceType.Type.IOS_PHONE, parentClass = ProductDetailPageBase.class)
 public class ProductDetailPage extends ProductDetailPageBase {
 
-    @FindBy(xpath = "//*[@name='test-BACK TO PRODUCTS']")
+    @iOSXCUITFindBy(accessibility = "test-BACK TO PRODUCTS")
     private ExtendedWebElement backToProductsButton;
 
-    @FindBy(xpath = "//*[@name='test-Price']")
+    @iOSXCUITFindBy(accessibility = "test-Price")
     private ExtendedWebElement productPrice;
 
-    @FindBy(xpath = "//*[@name='test-Description']")
+    @iOSXCUITFindBy(accessibility = "test-Description")
     private ExtendedWebElement productDescription;
 
-    @FindBy(xpath = "//*[@name='test-Image Container']")
+    @iOSXCUITFindBy(accessibility = "test-Image Container")
     private ExtendedWebElement productImage;
+
+    @FindBy(xpath = "//XCUIElementTypeStaticText")
+    private List<ExtendedWebElement> productTexts;
 
     public ProductDetailPage(WebDriver driver) {
         super(driver);
@@ -35,15 +40,22 @@ public class ProductDetailPage extends ProductDetailPageBase {
 
     @Override
     public boolean isSelectedProductNameDisplayed(String expectedProductName) {
-        return !getDriver().findElements(
-                By.xpath("//*[@name=\"" + expectedProductName + "\"]")
-        ).isEmpty();
+        return productTexts.stream()
+                .anyMatch(element -> element.getText().trim().equals(expectedProductName));
     }
 
     @Override
-    public boolean isProductImagePriceAndDescriptionDisplayed() {
-        return productImage.isElementPresent(TimeoutConstants.SHORT_TIMEOUT)
-                && productPrice.isElementPresent(TimeoutConstants.SHORT_TIMEOUT)
-                && productDescription.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
+    public boolean isProductImageDisplayed() {
+        return productImage.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
+    }
+
+    @Override
+    public boolean isProductPriceDisplayed() {
+        return productPrice.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
+    }
+
+    @Override
+    public boolean isProductDescriptionDisplayed() {
+        return productDescription.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
     }
 }

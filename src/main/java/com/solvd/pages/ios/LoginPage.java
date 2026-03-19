@@ -5,8 +5,8 @@ import com.solvd.pages.common.ProductPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,16 +15,16 @@ public class LoginPage extends LoginPageBase {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
 
-    @FindBy(xpath = "//*[@name='test-Username']")
+    @iOSXCUITFindBy(accessibility = "test-Username")
     private ExtendedWebElement usernameInput;
 
-    @FindBy(xpath = "//*[@name='test-Password']")
+    @iOSXCUITFindBy(accessibility = "test-Password")
     private ExtendedWebElement passwordInput;
 
-    @FindBy(xpath = "//*[@name='test-LOGIN']")
+    @iOSXCUITFindBy(accessibility = "test-LOGIN")
     private ExtendedWebElement loginButton;
 
-    @FindBy(xpath = "//*[@name='test-Error message']")
+    @iOSXCUITFindBy(accessibility = "test-Error message")
     private ExtendedWebElement errorMessageText;
 
     public LoginPage(WebDriver driver) {
@@ -43,20 +43,8 @@ public class LoginPage extends LoginPageBase {
     }
 
     @Override
-    public LoginPageBase loginExpectingFailure(String username, String password) {
-        LOGGER.info("Attempting negative login with username: {}", username);
-        usernameInput.type(username);
-        passwordInput.type(password);
-        loginButton.click();
-        LOGGER.info("Login button clicked for negative login scenario");
-        return initPage(getDriver(), LoginPageBase.class);
-    }
-
-    @Override
     public boolean isLoginScreenDisplayed() {
-        return usernameInput.isElementPresent(TimeoutConstants.LONG_TIMEOUT)
-                && passwordInput.isElementPresent(TimeoutConstants.LONG_TIMEOUT)
-                && loginButton.isElementPresent(TimeoutConstants.LONG_TIMEOUT);
+        return loginButton.isElementPresent(TimeoutConstants.LONG_TIMEOUT);
     }
 
     @Override
