@@ -11,8 +11,6 @@ public abstract class LoginPageBase extends AbstractPage {
 
     public abstract ProductPageBase login(String username, String password);
 
-    public abstract LoginPageBase loginExpectingFailure(String username, String password);
-
     public abstract boolean isLoginScreenDisplayed();
 
     public abstract String getErrorMessageText();

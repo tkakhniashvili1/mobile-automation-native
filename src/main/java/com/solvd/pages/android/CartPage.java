@@ -1,36 +1,28 @@
 package com.solvd.pages.android;
 
+import com.solvd.components.android.CartItemComponent;
+import com.solvd.components.common.CartItemComponentBase;
 import com.solvd.pages.common.CartPageBase;
 import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import io.appium.java_client.pagefactory.AndroidFindBy;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = CartPageBase.class)
 public class CartPage extends CartPageBase {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CartPage.class);
-
     @AndroidFindBy(accessibility = "test-CONTINUE SHOPPING")
     private ExtendedWebElement continueShoppingButton;
 
-    @FindBy(xpath = "(//*[@content-desc='test-Description']/android.widget.TextView)[1]")
-    private ExtendedWebElement firstCartItemTitle;
+    @FindBy(xpath = "//*[@content-desc='test-Item']")
+    private List<CartItemComponent> cartItems;
 
-    @AndroidFindBy(uiAutomator = "new UiSelector().description(\"test-Price\").childSelector(new UiSelector().classNameMatches(\".*Text.*\"))")
-    private ExtendedWebElement firstCartItemPrice;
-
-    @AndroidFindBy(accessibility = "test-REMOVE")
-    private List<ExtendedWebElement> removeButtons;
-
-    @FindBy(xpath = "//*[@content-desc='test-Cart badge']")
+    @AndroidFindBy(accessibility = "test-Cart badge")
     private ExtendedWebElement cartBadge;
 
     public CartPage(WebDriver driver) {
@@ -39,47 +31,41 @@ public class CartPage extends CartPageBase {
     }
 
     @Override
-    public boolean isCartPageOpened() {
+    public boolean isPageOpened() {
         return continueShoppingButton.isElementPresent(TimeoutConstants.LONG_TIMEOUT);
     }
 
     @Override
+    public List<CartItemComponentBase> getCartItems() {
+        pause(1);
+        return new ArrayList<>(cartItems);
+    }
+
+    @Override
+    public CartItemComponentBase getCartItem(int index) {
+        return cartItems.get(index);
+    }
+
+    @Override
+    public CartItemComponentBase getCartItemByTitle(String productTitle) {
+        return getCartItems().stream()
+                .filter(item -> item.getProductTitle().equals(productTitle))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
     public boolean isAddedProductDisplayedInCart(String expectedProductName) {
-        return isCartItemWithTitlePresent(expectedProductName);
+        return getCartItemByTitle(expectedProductName) != null;
     }
 
     @Override
-    public String getFirstCartItemTitleText() {
-        firstCartItemTitle.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
-        return firstCartItemTitle.getText().trim().replaceAll("\\s+", " ");
-    }
-
-    @Override
-    public String getFirstCartItemPriceText() {
-        firstCartItemPrice.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
-        return firstCartItemPrice.getText().trim();
-    }
-
-    @Override
-    public void removeFirstProductFromCart() {
-        LOGGER.info("Removing first product from cart");
-        removeButtons.get(0).click();
-        LOGGER.info("Remove button clicked for first cart item");
-    }
-
-    @Override
-    public boolean isCartBadgeNotDisplayed() {
+    public boolean isCartBadgeHidden() {
         return !cartBadge.isElementPresent(TimeoutConstants.SHORT_TIMEOUT);
     }
 
     @Override
     public boolean isRemovedItemNotDisplayed(String removedProductName) {
-        return !isCartItemWithTitlePresent(removedProductName);
-    }
-
-    private boolean isCartItemWithTitlePresent(String productName) {
-        return !getDriver().findElements(
-                By.xpath("//android.widget.TextView[@text=\"" + productName + "\"]")
-        ).isEmpty();
+        return getCartItemByTitle(removedProductName) == null;
     }
 }

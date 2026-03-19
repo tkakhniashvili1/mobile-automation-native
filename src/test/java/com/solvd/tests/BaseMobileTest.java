@@ -16,7 +16,7 @@ public abstract class BaseMobileTest extends AbstractTest {
     protected ProductPageBase loginAsStandardUser() {
         LoginPageBase loginPage = openLoginPage();
         ProductPageBase productPage = loginPage.login("standard_user", "secret_sauce");
-        Assert.assertTrue(productPage.isProductCardOpened(), "Product list is not displayed");
+        Assert.assertTrue(productPage.isPageOpened(), "Product page is not displayed");
         return productPage;
     }
 }

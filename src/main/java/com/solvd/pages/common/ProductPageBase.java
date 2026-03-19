@@ -1,10 +1,18 @@
 package com.solvd.pages.common;
 
 import com.solvd.components.common.HeaderComponentBase;
+import com.solvd.components.common.ProductListItemComponentBase;
+import com.solvd.pages.android.LoginPage;
 import com.zebrunner.carina.webdriver.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 public abstract class ProductPageBase extends AbstractPage {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginPage.class);
 
     protected HeaderComponentBase header;
 
@@ -12,19 +20,31 @@ public abstract class ProductPageBase extends AbstractPage {
         super(driver);
     }
 
-    public abstract boolean isProductCardOpened();
+    public abstract boolean isPageOpened();
 
-    public abstract boolean areFirstProductCardsContentDisplayed(int count);
+    public abstract List<ProductListItemComponentBase> getProductItems();
 
-    public abstract String getFirstProductTitleText();
+    public ProductListItemComponentBase getFirstProductItem() {
+        return getProductItems().get(0);
+    }
 
-    public abstract ProductDetailPageBase openFirstProductDetails();
+    public boolean areFirstProductsValid(int count) {
+        List<ProductListItemComponentBase> items = getProductItems();
 
-    public abstract void addFirstProductToCart();
+        if (items.size() < count) {
+            LOGGER.warn("Expected at least {} products, but found {}", count, items.size());
+            return false;
+        }
 
-    public abstract boolean isFirstProductButtonUpdatedToRemoveState();
+        for (int i = 0; i < count; i++) {
+            if (!items.get(i).isValidProductCard()) {
+                LOGGER.warn("Product at index {} is not valid", i);
+                return false;
+            }
+        }
 
-    public abstract String getFirstProductPriceText();
+        return true;
+    }
 
     public boolean isCartBadgeCountDisplayed(int expectedCount) {
         return header.isCartBadgeCountDisplayed(expectedCount);
