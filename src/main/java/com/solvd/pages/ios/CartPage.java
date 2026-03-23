@@ -7,9 +7,13 @@ import com.solvd.utils.TimeoutConstants;
 import com.zebrunner.carina.utils.factory.DeviceType;
 import com.zebrunner.carina.webdriver.decorator.ExtendedWebElement;
 import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +41,9 @@ public class CartPage extends CartPageBase {
 
     @Override
     public List<CartItemComponentBase> getCartItems() {
-        pause(1);
+        new WebDriverWait(getDriver(), Duration.ofSeconds(TimeoutConstants.LONG_TIMEOUT))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@name='test-Item']")));
+
         return new ArrayList<>(cartItems);
     }
 
