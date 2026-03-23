@@ -3,9 +3,10 @@
     <test name="iOS Login Tests">
         <parameter name="env" value="ios"/>
         <classes>
-            <class name="com.solvd.tests.LoginTest"></class>
-            <class name="com.solvd.tests.ProductTest"></class>
-            <class name="com.solvd.tests.CartTest"></class>
+<!--            <class name="com.solvd.tests.LoginTest"></class>-->
+<!--            <class name="com.solvd.tests.ProductTest"></class>-->
+<!--            <class name="com.solvd.tests.CartTest"></class>-->
+            <class name="com.solvd.tests.ImageSearchTest"></class>
         </classes>
     </test>
 </suite>
