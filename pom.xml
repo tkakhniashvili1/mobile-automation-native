@@ -14,7 +14,7 @@
         <surefire.version>3.2.5</surefire.version>
         <carina.version>1.2.10</carina.version>
         <appium.version>8.6.0</appium.version>
-        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+        <suiteXmlFile>src/test/resources/testng-android.xml</suiteXmlFile>
     </properties>
 
     <dependencies>
