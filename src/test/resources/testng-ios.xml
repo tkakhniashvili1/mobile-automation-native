@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Android Suite">
-    <test name="Android Login Tests">
-        <parameter name="env" value="android"/>
+<suite name="iOS Suite">
+    <test name="iOS Login Tests">
+        <parameter name="env" value="ios"/>
         <classes>
 <!--            <class name="com.solvd.tests.LoginTest"></class>-->
 <!--            <class name="com.solvd.tests.ProductTest"></class>-->
